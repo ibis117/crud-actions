@@ -1,0 +1,22 @@
+<?php
+
+namespace {{ namespace }};
+
+use App\Models\{{ model }};
+use Lorisleiva\Actions\ActionRequest;
+use Lorisleiva\Actions\Concerns\AsAction;
+
+class {{ class }}
+{
+    use AsAction;
+
+    public function handle($id) : {{ model }}
+    {
+        return {{ model }}::findOrFail($id);
+    }
+
+    public function asController($id)
+    {
+        return response($this->handle($id), 200);
+    }
+}

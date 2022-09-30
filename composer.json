@@ -1,0 +1,43 @@
+{
+    "name": "ibis117/crud-actions",
+    "description": "Api crud generator for laravel actions",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sanil Nakarmi",
+            "email": "cresilsanil@gmail.com",
+            "homepage": "https://sanilnakarmi.com.np"
+        }
+    ],
+    "homepage": "https://github.com/ibis117/crud-actions",
+    "keywords": ["Laravel", "CrudActions"],
+    "require": {
+        "php": "^8.0.2",
+        "laravel/framework":"^8.15|^9.0",
+        "lorisleiva/laravel-actions": "^2.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~9.0",
+        "orchestra/testbench": "~7"
+    },
+    "autoload": {
+        "psr-4": {
+            "Ibis117\\CrudActions\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Ibis117\\CrudActions\\Tests\\": "tests"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Ibis117\\CrudActions\\CrudActionsServiceProvider"
+            ],
+            "aliases": {
+                "CrudActions": "Ibis117\\CrudActions\\Facades\\CrudActions"
+            }
+        }
+    }
+}

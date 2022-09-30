@@ -1,0 +1,35 @@
+<?php
+
+namespace {{ namespace }};
+
+use App\Models\{{ model }};
+use Lorisleiva\Actions\ActionRequest;
+use Lorisleiva\Actions\Concerns\AsAction;
+
+class {{ class }}
+{
+    use AsAction;
+
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    public function rules(): array
+    {
+        return [
+            //
+        ];
+    }
+
+    public function handle({{ model }} ${{ singular }}, array $data): Category
+    {
+        return tap(${{ singular }})->update($data);
+    }
+
+    public function asController({{ model }} ${{ singular }}, ActionRequest $request)
+    {
+        ${{ singular }} = $this->handle(${{ singular }}, $request->all());
+        return response(${{ singular }}, 201);
+    }
+}

@@ -1,0 +1,27 @@
+<?php
+
+namespace {{ namespace }};
+
+use App\Models\{{ model }};
+
+use Illuminate\Http\Request;
+use Lorisleiva\Actions\Concerns\AsAction;
+
+
+class {{ class }}
+{
+    use AsAction;
+
+    public function handle({{ model }} ${{ singular }}, $deleteFromDatabase = false): bool
+    {
+        if ($deleteFromDatabase) {
+            return ${{ model }}->forceDelete();
+        }
+        return ${{ model }}->delete();
+    }
+
+    public function asController({{ model }} ${{ singular }})
+    {
+        return response($this->handle(${{ singular }}), 204);
+    }
+}

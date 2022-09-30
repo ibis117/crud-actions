@@ -1,0 +1,32 @@
+<?php
+
+namespace {{ namespace }};
+
+use App\Models\{{ model }};
+
+use Illuminate\Http\Request;
+use Lorisleiva\Actions\Concerns\AsAction;
+
+
+class {{ class }}
+{
+    use AsAction;
+
+    public function handle($count = 10)
+    {
+        return {{ model }}::paginate($count);
+    }
+
+    public function asController(Request $request)
+    {
+        $count = $request['count'] ?? 10;
+        ${{ plural }} = $this->handle($count);
+        $result = [
+            'perPage' => ${{ plural }}->perPage(),
+            'currentPage' => ${{ plural }}->currentPage(),
+            'lastPage' => ${{ plural }}->lastPage(),
+            'data' => ${{ plural }}->items(),
+        ];
+        return response($result, 200);
+    }
+}
