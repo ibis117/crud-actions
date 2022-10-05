@@ -15,9 +15,9 @@ class {{ class }}
     public function handle({{ model }} ${{ singular }}, $deleteFromDatabase = false): bool
     {
         if ($deleteFromDatabase) {
-            return ${{ model }}->forceDelete();
+            return ${{ singular }}->forceDelete();
         }
-        return ${{ model }}->delete();
+        return ${{ singular }}->delete();
     }
 
     public function asController({{ model }} ${{ singular }})
