@@ -22,7 +22,7 @@ class {{ class }}
         ];
     }
 
-    public function handle({{ model }} ${{ singular }}, array $data): Category
+    public function handle({{ model }} ${{ singular }}, array $data): {{ model }}
     {
         return tap(${{ singular }})->update($data);
     }
