@@ -4,32 +4,18 @@ namespace {{ namespace }};
 
 use App\Models\{{ model }};
 use Lorisleiva\Actions\ActionRequest;
-use Lorisleiva\Actions\Concerns\AsAction;
+use Ibis117\CrudActions\Traits\CreateAction;
 
 class {{ class }}
 {
-    use AsAction;
+    use CreateAction;
 
-    public function authorize(): bool
-    {
-        return true;
-    }
+    protected string $model = {{ model }}::class;
 
     public function rules(): array
     {
         return [
             //
         ];
-    }
-
-    public function handle(array $data): {{ model }}
-    {
-        return {{ model }}::create($data);
-    }
-
-    public function asController(ActionRequest $request)
-    {
-        ${{ singular }} = $this->handle($request->all());
-        return response(${{ singular }}, 201);
     }
 }

@@ -3,30 +3,13 @@
 namespace {{ namespace }};
 
 use App\Models\{{ model }};
-
 use Illuminate\Http\Request;
-use Lorisleiva\Actions\Concerns\AsAction;
+use Ibis117\CrudActions\Traits\ListAction;
 
 
 class {{ class }}
 {
-    use AsAction;
+    use ListAction;
 
-    public function handle($count = 10)
-    {
-        return {{ model }}::paginate($count);
-    }
-
-    public function asController(Request $request)
-    {
-        $count = $request['count'] ?? 10;
-        ${{ plural }} = $this->handle($count);
-        $result = [
-            'perPage' => ${{ plural }}->perPage(),
-            'currentPage' => ${{ plural }}->currentPage(),
-            'lastPage' => ${{ plural }}->lastPage(),
-            'data' => ${{ plural }}->items(),
-        ];
-        return response($result, 200);
-    }
+    protected string $model = {{ model }}::class;
 }

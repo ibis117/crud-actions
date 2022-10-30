@@ -4,19 +4,13 @@ namespace {{ namespace }};
 
 use App\Models\{{ model }};
 use Lorisleiva\Actions\ActionRequest;
-use Lorisleiva\Actions\Concerns\AsAction;
+use Ibis117\CrudActions\Traits\ShowAction;
 
 class {{ class }}
 {
-    use AsAction;
+    use ShowAction;
 
-    public function handle($id) : {{ model }}
-    {
-        return {{ model }}::findOrFail($id);
-    }
+    protected string $model = {{ model }}::class;
 
-    public function asController($id)
-    {
-        return response($this->handle($id), 200);
-    }
+
 }

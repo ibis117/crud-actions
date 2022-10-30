@@ -4,16 +4,13 @@ namespace {{ namespace }};
 
 use App\Models\{{ model }};
 use Lorisleiva\Actions\ActionRequest;
-use Lorisleiva\Actions\Concerns\AsAction;
+use Ibis117\CrudActions\Traits\UpdateAction;
 
 class {{ class }}
 {
-    use AsAction;
+    use UpdateAction;
 
-    public function authorize(): bool
-    {
-        return true;
-    }
+    protected string $model = {{ model }}::class;
 
     public function rules(): array
     {
@@ -22,14 +19,5 @@ class {{ class }}
         ];
     }
 
-    public function handle({{ model }} ${{ singular }}, array $data): {{ model }}
-    {
-        return tap(${{ singular }})->update($data);
-    }
 
-    public function asController({{ model }} ${{ singular }}, ActionRequest $request)
-    {
-        ${{ singular }} = $this->handle(${{ singular }}, $request->all());
-        return response(${{ singular }}, 201);
-    }
 }
