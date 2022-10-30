@@ -3,7 +3,6 @@
 namespace {{ namespace }};
 
 use App\Models\{{ model }};
-use Illuminate\Http\Request;
 use Ibis117\CrudActions\Traits\DeleteAction;
 
 

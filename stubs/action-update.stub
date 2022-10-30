@@ -3,7 +3,6 @@
 namespace {{ namespace }};
 
 use App\Models\{{ model }};
-use Lorisleiva\Actions\ActionRequest;
 use Ibis117\CrudActions\Traits\UpdateAction;
 
 class {{ class }}
