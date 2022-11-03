@@ -11,28 +11,47 @@ trait ListAction
 
     public function handle($count = 10)
     {
-        $query = $this->model::select();
+        $query = $this->select();
         $query = $this->filter($query);
 
+        return $this->paginate($query, $count);
+    }
+
+    protected function select()
+    {
+        return $this->model::select();
+    }
+
+    protected function paginate($query, $count)
+    {
         return $query->paginate($count);
     }
 
-    public function filter($query)
+    protected function filter($query)
     {
         return $query;
     }
 
-    public function asController(Request $request)
+    protected function pagination($data)
     {
-        $count = $request['count'] ?? 10;
-        $data = $this->handle($count);
-        $result = [
+        return [
             'perPage' => $data->perPage(),
             'currentPage' => $data->currentPage(),
             'lastPage' => $data->lastPage(),
+            'totalCount' => $data->total(),
             'data' => $data->items(),
         ];
+    }
 
+    protected function response($result)
+    {
         return response($result, 200);
+    }
+
+    public function asController(Request $request)
+    {
+        $count = $request['count'] ?? $this->perPage ?? 10;
+        $result = $this->pagination($this->handle($count));
+        return $this->response($result);
     }
 }
