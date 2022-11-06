@@ -9,10 +9,10 @@ trait ListAction
 {
     use AsAction;
 
-    public function handle($count = 10)
+    public function handle($count = 10, $filter = [])
     {
         $query = $this->select();
-        $query = $this->filter($query);
+        $query = $this->filter($query, $filter);
 
         return $this->paginate($query, $count);
     }
@@ -27,7 +27,7 @@ trait ListAction
         return $query->paginate($count);
     }
 
-    protected function filter($query)
+    protected function filter($query, $filter)
     {
         return $query;
     }
@@ -51,7 +51,7 @@ trait ListAction
     public function asController(Request $request)
     {
         $count = $request['count'] ?? $this->perPage ?? 10;
-        $result = $this->pagination($this->handle($count));
+        $result = $this->pagination($this->handle($count), $request->all());
         return $this->response($result);
     }
 }
