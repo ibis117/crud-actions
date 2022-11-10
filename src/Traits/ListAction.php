@@ -3,6 +3,7 @@
 namespace Ibis117\CrudActions\Traits;
 
 use Illuminate\Http\Request;
+use Illuminate\Pagination\AbstractPaginator;
 use Lorisleiva\Actions\Concerns\AsAction;
 
 trait ListAction
@@ -34,13 +35,17 @@ trait ListAction
 
     protected function pagination($data)
     {
-        return [
-            'perPage' => $data->perPage(),
-            'currentPage' => $data->currentPage(),
-            'lastPage' => $data->lastPage(),
-            'totalCount' => $data->total(),
-            'data' => $data->items(),
-        ];
+        if($data instanceof AbstractPaginator) {
+            return [
+                'perPage' => $data->perPage(),
+                'currentPage' => $data->currentPage(),
+                'lastPage' => $data->lastPage(),
+                'totalCount' => $data->total(),
+                'data' => $data->items(),
+            ];
+        }
+
+        return $data;
     }
 
     protected function response($result)
