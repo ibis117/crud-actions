@@ -56,7 +56,11 @@ trait ListAction
     public function asController(Request $request)
     {
         $count = $request['count'] ?? $this->perPage ?? 10;
-        $result = $this->pagination($this->handle($count), $request->all());
+        $filter = $request->all();
+        if (property_exists($this, 'filterOption')) {
+            $filter = $this->filterOption == ['*'] ? $filter : $request->only($this->filterOption);
+        }
+        $result = $this->pagination($this->handle($count, $filter));
         return $this->response($result);
     }
 }
